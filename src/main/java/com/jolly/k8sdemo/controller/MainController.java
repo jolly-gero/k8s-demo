@@ -19,12 +19,8 @@ public class MainController {
     @Autowired
     private RequestCounter requestCounter;
 
-    private static final String VERSION_0 = "0.0";
     private static final String VERSION_1 = "1.0";
-    private static final String VERSION_2 = "2.0";
-    private static final String DESCRIPTION_0 = "1 pod and no graceful shutdown";
     private static final String DESCRIPTION_1 = "1 pod and set graceful shutdown";
-    private static final String DESCRIPTION_2 = "1 pod and set graceful shutdown, preStopHook and terminationGracePeriodSeconds";
 
     @GetMapping("/status")
     public Mono<Response> status() {

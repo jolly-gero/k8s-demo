@@ -8,7 +8,6 @@ server:
 management:
   endpoints:
     web:
-      #      base-path: "/"
       exposure:
         include: "*"
   endpoint:
