@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-demo-0
+spec:
+  selector:
+    matchLabels:
+      app: k8s-demo-0
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: k8s-demo-0
+    spec:
+      containers:
+        - name: k8s-demo-0
+          image: jollygero/k8s-demo:0
+          imagePullPolicy: Always
+          ports:
+            - name: k8s-demo-0
+              containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-demo-0
+  labels:
+    app: k8s-demo-0
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30001
+  selector:
+    app: k8s-demo-0
