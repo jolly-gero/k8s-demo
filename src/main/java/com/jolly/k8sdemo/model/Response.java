@@ -9,5 +9,6 @@ import lombok.extern.jackson.Jacksonized;
 @Data
 public class Response {
     String text;
+    String version;
     String description;
 }
