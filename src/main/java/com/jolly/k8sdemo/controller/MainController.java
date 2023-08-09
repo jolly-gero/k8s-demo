@@ -19,11 +19,7 @@ public class MainController {
     @Autowired
     private RequestCounter requestCounter;
 
-    private static final String VERSION_0 = "0.0";
-    private static final String VERSION_1 = "1.0";
     private static final String VERSION_2 = "2.0";
-    private static final String DESCRIPTION_0 = "1 pod and no graceful shutdown";
-    private static final String DESCRIPTION_1 = "1 pod and set graceful shutdown";
     private static final String DESCRIPTION_2 = "1 pod and set graceful shutdown, preStopHook and terminationGracePeriodSeconds";
 
     @GetMapping("/status")
@@ -31,8 +27,8 @@ public class MainController {
         log.info("k8s demo-test");
         return Mono.just(Response.builder()
                         .text("k8s demo-test")
-                        .version(VERSION_1)
-                        .description(DESCRIPTION_1)
+                        .version(VERSION_2)
+                        .description(DESCRIPTION_2)
                         .build()
         );
     }
@@ -45,8 +41,8 @@ public class MainController {
         log.info("request #{} : {}", requestCounter.getCount(), context);
         return Mono.fromFuture(() -> Mono.just(Response.builder()
                                 .text(context)
-                                .version(VERSION_1)
-                                .description(DESCRIPTION_1)
+                                .version(VERSION_2)
+                                .description(DESCRIPTION_2)
                                 .build())
                         .toFuture())
                 .delayElement(Duration.ofSeconds(duration));

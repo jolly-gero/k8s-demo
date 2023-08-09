@@ -1,14 +1,13 @@
 server:
   shutdown: graceful
 
-#spring:
-#  lifecycle:
-#    timeout-per-shutdown-phase: 30s
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 40s
 
 management:
   endpoints:
     web:
-      #      base-path: "/"
       exposure:
         include: "*"
   endpoint:
