@@ -1,4 +1,4 @@
-package com.jolly.k8sdemo.controller.component;
+package com.jolly.k8sdemo.component;
 
 import org.springframework.stereotype.Component;
 

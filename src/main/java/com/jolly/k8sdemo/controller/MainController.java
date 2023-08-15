@@ -1,6 +1,6 @@
 package com.jolly.k8sdemo.controller;
 
-import com.jolly.k8sdemo.controller.component.RequestCounter;
+import com.jolly.k8sdemo.component.RequestCounter;
 import com.jolly.k8sdemo.model.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class MainController {
 
     @GetMapping("/status")
     public Mono<Response> status() {
-        log.info("k8s demo-test");
+        log.info("[V2]: k8s demo-test");
         return Mono.just(Response.builder()
                         .text("k8s demo-test")
                         .version(VERSION_2)
@@ -38,10 +38,11 @@ public class MainController {
         String context = "delay for " + duration + " s";
         requestCounter.increment();
 
-        log.info("request #{} : {}", requestCounter.getCount(), context);
+        log.info("[V2]: request #{} : {}", requestCounter.getCount(), context);
         return Mono.fromFuture(() -> Mono.just(Response.builder()
                                 .text(context)
                                 .version(VERSION_2)
+                                .sequence(requestCounter.getCount())
                                 .description(DESCRIPTION_2)
                                 .build())
                         .toFuture())
