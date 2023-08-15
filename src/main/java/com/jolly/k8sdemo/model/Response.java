@@ -10,5 +10,6 @@ import lombok.extern.jackson.Jacksonized;
 public class Response {
     String text;
     String version;
+    int sequence;
     String description;
 }
