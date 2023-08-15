@@ -1,6 +1,6 @@
 package com.jolly.k8sdemo.controller;
 
-import com.jolly.k8sdemo.controller.component.RequestCounter;
+import com.jolly.k8sdemo.component.RequestCounter;
 import com.jolly.k8sdemo.model.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +42,7 @@ public class MainController {
         return Mono.fromFuture(() -> Mono.just(Response.builder()
                                 .text(context)
                                 .version(VERSION_1)
+                                .sequence(requestCounter.getCount())
                                 .description(DESCRIPTION_1)
                                 .build())
                         .toFuture())
