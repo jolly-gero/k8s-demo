@@ -23,7 +23,7 @@ spec:
             preStop:
               exec:
                 command: [ "sh", "-c", "sleep 10" ]  #set pre-stop hook
-      terminationGracePeriodSeconds: 30  # terminationGracePeriodSeconds
+      terminationGracePeriodSeconds: 45  # terminationGracePeriodSeconds
 ---
 apiVersion: v1
 kind: Service
