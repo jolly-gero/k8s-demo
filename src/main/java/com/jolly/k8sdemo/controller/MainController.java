@@ -24,7 +24,7 @@ public class MainController {
 
     @GetMapping("/status")
     public Mono<Response> status() {
-        log.info("k8s demo-test");
+        log.info("[V1]: k8s demo-test");
         return Mono.just(Response.builder()
                         .text("k8s demo-test")
                         .version(VERSION_1)
@@ -38,7 +38,7 @@ public class MainController {
         String context = "delay for " + duration + " s";
         requestCounter.increment();
 
-        log.info("request #{} : {}", requestCounter.getCount(), context);
+        log.info("[V1]:request #{} : {}", requestCounter.getCount(), context);
         return Mono.fromFuture(() -> Mono.just(Response.builder()
                                 .text(context)
                                 .version(VERSION_1)
