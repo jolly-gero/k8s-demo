@@ -1,42 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: k8s-demo-2
+  name: k8s-demo-2-2
 spec:
   selector:
     matchLabels:
-      app: k8s-demo-2
+      app: k8s-demo-2-2
   replicas: 1
   template:
     metadata:
       labels:
-        app: k8s-demo-2
+        app: k8s-demo-2-2
     spec:
-      terminationGracePeriodSeconds: 45  # terminationGracePeriodSeconds
+      terminationGracePeriodSeconds: 100  # terminationGracePeriodSeconds
       containers:
-        - name: k8s-demo-2
+        - name: k8s-demo-2-2
           image: jollygero/k8s-demo:2
           imagePullPolicy: Always
           ports:
-            - name: k8s-demo-2
+            - name: k8s-demo-2-2
               containerPort: 8080
           lifecycle:
             preStop:
               exec:
 #                command: [ "sh", "-c", "sleep 10" ]  #set pre-stop hook
-                command: [ "/bin/sh","-c","sleep 10" ]
+                command: [ "/bin/sh","-c","sleep 60" ]
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: k8s-demo-2
+  name: k8s-demo-2-2
   labels:
-    app: k8s-demo-2
+    app: k8s-demo-2-2
 spec:
   type: NodePort
   ports:
     - port: 8080
       targetPort: 8080
-      nodePort: 30002
+      nodePort: 30003
   selector:
-    app: k8s-demo-2
+    app: k8s-demo-2-2

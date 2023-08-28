@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,10 +27,11 @@ public class MainController {
     public Mono<Response> status() {
         log.info("[V2]: k8s demo-test");
         return Mono.just(Response.builder()
-                        .text("k8s demo-test")
-                        .version(VERSION_2)
-                        .description(DESCRIPTION_2)
-                        .build()
+                .text("k8s demo-test")
+                .pod(Objects.requireNonNullElse(System.getenv("HOSTNAME"), "can't find pod name"))
+                .version(VERSION_2)
+                .description(DESCRIPTION_2)
+                .build()
         );
     }
 
@@ -41,6 +43,7 @@ public class MainController {
         log.info("[V2]: request #{} : {}", requestCounter.getCount(), context);
         return Mono.fromFuture(() -> Mono.just(Response.builder()
                                 .text(context)
+                                .pod(Objects.requireNonNullElse(System.getenv("HOSTNAME"), "can't find pod name"))
                                 .version(VERSION_2)
                                 .sequence(requestCounter.getCount())
                                 .description(DESCRIPTION_2)
