@@ -1,6 +1,6 @@
 package com.jolly.k8sdemo.controller;
 
-import com.jolly.k8sdemo.controller.component.RequestCounter;
+import com.jolly.k8sdemo.component.RequestCounter;
 import com.jolly.k8sdemo.model.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,10 +27,11 @@ public class MainController {
     public Mono<Response> status() {
         log.info("k8s demo-test");
         return Mono.just(Response.builder()
-                        .text("k8s demo-test")
-                        .version(VERSION_0)
-                        .description(DESCRIPTION_0)
-                        .build()
+                .text("k8s demo-test")
+                .pod(Objects.requireNonNullElse(System.getenv("HOSTNAME"), "can't find pod name"))
+                .version(VERSION_0)
+                .description(DESCRIPTION_0)
+                .build()
         );
     }
 
@@ -41,6 +43,7 @@ public class MainController {
         log.info("request #{} : {}", requestCounter.getCount(), context);
         return Mono.fromFuture(() -> Mono.just(Response.builder()
                                 .text(context)
+                                .pod(Objects.requireNonNullElse(System.getenv("HOSTNAME"), "can't find pod name"))
                                 .version(VERSION_0)
                                 .description(DESCRIPTION_0)
                                 .build())
