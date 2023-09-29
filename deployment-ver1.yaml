@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: k8s-demo-1
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
@@ -19,6 +19,18 @@ spec:
           ports:
             - name: k8s-demo-1
               containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
 ---
 apiVersion: v1
 kind: Service
